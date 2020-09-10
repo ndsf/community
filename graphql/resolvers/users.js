@@ -143,22 +143,6 @@ module.exports = {
       if (user) {
         let password = makeid(10);
         user.password = await bcrypt.hash(password, 12);
-
-        // Generate test SMTP service account from ethereal.email
-        // Only needed if you don't have a real mail account for testing
-        // let testAccount = await nodemailer.createTestAccount();
-
-        // create reusable transporter object using the default SMTP transport
-        /*         let transporter = nodemailer.createTransport({
-          host: "smtp.163.com",
-          port: 587,
-          secure: false, // true for 465, false for other ports
-          auth: {
-            user: "ndsffx17@163.com", // generated ethereal user
-            pass: "Market2019" // generated ethereal password
-          }
-        }); */
-
         let transporter = nodemailer.createTransport({
           service: process.env.SMTP_SERVICE, //service: "qq",
           host: process.env.SMTP_HOST, // host: "smtp.qq.com",
