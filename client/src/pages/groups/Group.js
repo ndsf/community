@@ -176,6 +176,7 @@ const Group = props => {
                                 <GroupDeletePostButton
                                     groupId={id}
                                     postId={item.id}
+                                    post={item}
                                 />
                             );
                           }

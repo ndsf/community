@@ -210,7 +210,7 @@ module.exports = {
         });
 
         await receiverUser.save();
-        return '发送成功';
+        return receiverUser;
       } else throw new UserInputError("User not found", {errors});
     },
     clearNotification: async(_, data, context) => {

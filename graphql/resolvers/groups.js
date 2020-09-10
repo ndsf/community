@@ -135,8 +135,8 @@ module.exports = {
 
       if (group) {
         if (
-          group.admins.find(a => a.username === username) ||
-          group.username === username
+            group.admins.find(a => a.username === username) ||
+            group.username === username
         ) {
           const names = usernames.split(' ');
           for (const name of names) {
@@ -196,7 +196,7 @@ module.exports = {
         return group;
       } else throw new UserInputError("Group not found, or not joined");
     },
-    deleteGroupPost: async (_, {groupId, postId, reason}, context) => {
+    deleteGroupPost: async (_, {groupId, postId}, context) => {
       const {username} = checkAuth(context);
 
       const group = await Group.findById(groupId);
@@ -206,10 +206,10 @@ module.exports = {
 
         post = group.posts[postIndex];
         if (
-          post &&
-          (post.username === username ||
-            group.admins.find(a => a.username === username) ||
-            group.username === username) // creator / admin / group creator
+            post &&
+            (post.username === username ||
+                group.admins.find(a => a.username === username) ||
+                group.username === username) // creator / admin / group creator
         ) {
           group.posts.splice(postIndex, 1);
           await group.save();
@@ -217,16 +217,6 @@ module.exports = {
             ...group.posts.filter(post => post.top),
             ...group.posts.filter(post => !post.top)
           ];
-          // send a notification
-          const receiverUser = await User.findOne({username: post.username});
-
-          if (receiverUser)
-            receiverUser.notifications.unshift({
-              body: reason,
-              username,
-              createdAt: new Date().toISOString()
-            });
-          await receiverUser.save();
 
           return group;
         } else {
@@ -272,9 +262,9 @@ module.exports = {
         const postIndex = group.posts.findIndex(p => p.id === postId);
         post = group.posts[postIndex];
         if (
-          post &&
-          (group.admins.find(a => a.username === username) ||
-            group.username === username) // admin / group creator
+            post &&
+            (group.admins.find(a => a.username === username) ||
+                group.username === username) // admin / group creator
         ) {
           post.top = !post.top; // toggle top
           await group.save();
@@ -297,9 +287,9 @@ module.exports = {
         const postIndex = group.posts.findIndex(p => p.id === postId);
         post = group.posts[postIndex];
         if (
-          post &&
-          (group.admins.find(a => a.username === username) ||
-            group.username === username) // admin / group creator
+            post &&
+            (group.admins.find(a => a.username === username) ||
+                group.username === username) // admin / group creator
         ) {
           post.qualified = !post.qualified; // toggle qualified
           await group.save();
@@ -316,9 +306,9 @@ module.exports = {
       }
     },
     createGroupPostComment: async (
-      _,
-      {groupId, postId, title, body},
-      context
+        _,
+        {groupId, postId, title, body},
+        context
     ) => {
       const {username} = checkAuth(context);
       if (body.trim() === "") {
@@ -346,9 +336,9 @@ module.exports = {
       } else throw new UserInputError("Group not found, or not liked");
     },
     deleteGroupPostComment: async (
-      _,
-      {groupId, postId, commentId},
-      context
+        _,
+        {groupId, postId, commentId},
+        context
     ) => {
       const {username} = checkAuth(context);
       const group = await Group.findById(groupId);
@@ -360,10 +350,10 @@ module.exports = {
           comment = post.comments[commentIndex];
 
           if (
-            comment &&
-            (comment.username === username ||
-              group.admins.find(a => a.username === username) ||
-              group.username === username)
+              comment &&
+              (comment.username === username ||
+                  group.admins.find(a => a.username === username) ||
+                  group.username === username)
           ) {
             post.comments.splice(commentIndex, 1);
             await group.save();
@@ -380,15 +370,15 @@ module.exports = {
       const group = await Group.findById(groupId);
 
       if (
-        group &&
-        !group.admins.find(admin => admin.username === username) &&
-        username !== group.username &&
-        group.likes.find(like => like.username === username)
+          group &&
+          !group.admins.find(admin => admin.username === username) &&
+          username !== group.username &&
+          group.likes.find(like => like.username === username)
       ) {
         if (group.applies.find(apply => apply.username === username)) {
           // Group already applied, remove the apply
           group.applies = group.applies.filter(
-            apply => apply.username !== username
+              apply => apply.username !== username
           );
         } else {
           // Not applied, apply
@@ -404,7 +394,7 @@ module.exports = {
         return group;
       } else
         throw new UserInputError(
-          "Group not found, or the user is already an admin, or the user is the creator of the group"
+            "Group not found, or the user is already an admin, or the user is the creator of the group"
         );
     },
     grantGroupAdmin: async (_, {groupId, name}, context) => {
@@ -444,15 +434,15 @@ module.exports = {
       const {username} = checkAuth(context);
       const group = await Group.findById(groupId);
       if (
-        group && // group exists
-        !group.admins.find(admin => admin.username === username) && // not admin
-        username !== group.username && // not creator
-        !group.likes.find(like => like.username === username) // not member
+          group && // group exists
+          !group.admins.find(admin => admin.username === username) && // not admin
+          username !== group.username && // not creator
+          !group.likes.find(like => like.username === username) // not member
       ) {
         if (group.admissions.find(admission => admission.username === username)) {
           // Group admission already applied, remove the apply
           group.admissions = group.admissions.filter(
-            admission => admission.username !== username
+              admission => admission.username !== username
           );
         } else {
           // Not applied, apply
@@ -467,7 +457,7 @@ module.exports = {
         return group;
       } else
         throw new UserInputError(
-          "Group not found, or the user is already an admin, or the user is the creator of the group"
+            "Group not found, or the user is already an admin, or the user is the creator of the group"
         );
     },
     grantGroupAdmission: async (_, {groupId, name}, context) => {
@@ -514,7 +504,7 @@ module.exports = {
           if (post.reports.find(report => report.username === username)) {
             // Post already reported, unreport it
             post.reports = post.reports.filter(
-              report => report.username !== username
+                report => report.username !== username
             );
           } else {
             // Not reported, report post
@@ -534,18 +524,18 @@ module.exports = {
       } else throw new UserInputError("Group not found, or not reported");
     },
     removeGroupPostReport: async (
-      _,
-      {groupId, postId, reportId},
-      context
+        _,
+        {groupId, postId, reportId},
+        context
     ) => {
       const {username} = checkAuth(context);
 
       const group = await Group.findById(groupId);
 
       if (
-        group &&
-        (group.admins.find(admin => admin.username === username) ||
-          group.username === username)
+          group &&
+          (group.admins.find(admin => admin.username === username) ||
+              group.username === username)
       ) {
         const postIndex = group.posts.findIndex(p => p.id === postId);
         post = group.posts[postIndex];
@@ -562,9 +552,9 @@ module.exports = {
       } else throw new UserInputError("Group not found, or not reported");
     },
     createGroupPostSecondaryComment: async (
-      _,
-      {groupId, postId, commentId, title, body},
-      context
+        _,
+        {groupId, postId, commentId, title, body},
+        context
     ) => {
       const {username} = checkAuth(context);
       if (body.trim() === "") {
@@ -595,9 +585,9 @@ module.exports = {
       } else throw new UserInputError("Group not found, or not liked");
     },
     deleteGroupPostSecondaryComment: async (
-      _,
-      {groupId, postId, commentId, secondaryId},
-      context
+        _,
+        {groupId, postId, commentId, secondaryId},
+        context
     ) => {
       const {username} = checkAuth(context);
       const group = await Group.findById(groupId);
@@ -609,14 +599,14 @@ module.exports = {
           comment = post.comments[commentIndex];
           if (comment) {
             const secondaryIndex = comment.comments.findIndex(
-              c => c.id === secondaryId
+                c => c.id === secondaryId
             );
             secondary = comment.comments[secondaryIndex];
             if (
-              secondary &&
-              (secondary.username === username ||
-                group.admins.find(a => a.username === username) ||
-                group.username === username)
+                secondary &&
+                (secondary.username === username ||
+                    group.admins.find(a => a.username === username) ||
+                    group.username === username)
             ) {
               comment.comments.splice(secondaryIndex, 1);
               await group.save();
