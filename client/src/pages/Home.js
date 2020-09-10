@@ -54,10 +54,14 @@ const Home = props => {
         }
     ];
 
+    const clearNotificationCallback = () => {
+        props.history.go(0);
+    }
+
     const contentListNoTitle = {
         notification: (
             <>
-                <UserClearNotificationButton/>
+                <UserClearNotificationButton callback={clearNotificationCallback}/>
                 <List
                     itemLayout="vertical"
                     pagination={{

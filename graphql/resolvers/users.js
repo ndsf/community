@@ -219,7 +219,7 @@ module.exports = {
       if (user) {
         user.notifications.splice(0, user.notifications.length);
         await user.save();
-        return "清空成功";
+        return user;
       } else throw new AuthenticationError("Action not allowed");
     }
   }
