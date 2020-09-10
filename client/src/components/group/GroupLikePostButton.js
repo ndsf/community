@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Icon } from "antd";
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { LikeOutlined } from '@ant-design/icons';
 
 const GroupLikePostButton = ({
   user,
@@ -22,7 +23,7 @@ const GroupLikePostButton = ({
 
   return user ? (
     <span onClick={likeGroup}>
-      <Icon
+      <LegacyIcon
         theme={liked ? "twoTone" : ""}
         twoToneColor="#eb2f96"
         type="like-o"
@@ -32,7 +33,7 @@ const GroupLikePostButton = ({
     </span>
   ) : (
     <span>
-      <Icon type="like-o" style={{ marginRight: 8 }} />
+      <LikeOutlined style={{ marginRight: 8 }} />
       {likeCount}
     </span>
   );

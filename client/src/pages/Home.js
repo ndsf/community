@@ -25,12 +25,12 @@ const Home = props => {
 
     const {
         loading: loadingGroups,
-        data: {getGroups: groups}
+        data: {getGroups: groups} = {}
     } = useQuery(FETCH_GROUPS_QUERY);
 
     const {
         loading: loadingUser,
-        data: {getUser}
+        data: {getUser} = {}
     } = useQuery(FETCH_USER_QUERY, {
         variables: {
             username

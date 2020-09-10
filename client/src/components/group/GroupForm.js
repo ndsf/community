@@ -1,5 +1,8 @@
 import React from "react";
-import {Button, Form, Icon, Input, message, Upload} from "antd";
+import { UploadOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input, message, Upload } from "antd";
 
 import {useForm} from "../../utils/hooks";
 import gql from "graphql-tag";
@@ -94,7 +97,7 @@ const GroupForm = () => {
             <Form.Item>
                 <Upload {...props}>
                     <Button>
-                        <Icon type="upload"/> 上传图片
+                        <UploadOutlined /> 上传图片
                     </Button>
                 </Upload>
             </Form.Item>

@@ -1,6 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
-import { Popconfirm, Icon, message } from "antd";
+import { DeleteOutlined } from '@ant-design/icons';
+import { Popconfirm, message } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 
 const GroupDeletePostCommentButton = ({
@@ -33,7 +34,7 @@ const GroupDeletePostCommentButton = ({
       okText="确认"
       cancelText="取消"
     >
-      <Icon type="delete" style={{ marginRight: 8 }} />
+      <DeleteOutlined style={{ marginRight: 8 }} />
       删除
     </Popconfirm>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
-import { Popconfirm, Icon, message } from "antd";
+import { StarOutlined } from '@ant-design/icons';
+import { Popconfirm, message } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 
 const GroupQualifiedPostButton = ({ groupId, postId, callback }) => {
@@ -24,7 +25,7 @@ const GroupQualifiedPostButton = ({ groupId, postId, callback }) => {
       okText="确认"
       cancelText="取消"
     >
-      <Icon type="star" style={{ marginRight: 8 }} />
+      <StarOutlined style={{ marginRight: 8 }} />
       精华
     </Popconfirm>
   );

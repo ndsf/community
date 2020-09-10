@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Form, Input } from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input } from "antd";
 
 const { Search } = Input;
 

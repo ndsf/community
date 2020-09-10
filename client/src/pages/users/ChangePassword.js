@@ -1,7 +1,10 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Form, Input, Avatar, Layout, Button, message } from "antd";
+import { UserOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Avatar, Layout, Button, message } from "antd";
 import { useForm } from "../../utils/hooks";
 const { Content } = Layout;
 const ChangePassword = props => {
@@ -25,7 +28,7 @@ const ChangePassword = props => {
   return (
     <Content style={{ padding: "0 300px" }}>
       <div style={{ margin: "24px 0" }} />
-      <Avatar size={64} icon="user" position="center" />
+      <Avatar size={64} icon={<UserOutlined />} position="center" />
       <div style={{ margin: "24px 0" }} />
       <Form layout="vertical" onSubmit={onSubmit}>
         <Form.Item label="密码">

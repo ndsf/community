@@ -1,6 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
-import { Popconfirm, Icon, message } from "antd";
+import { HeartOutlined } from '@ant-design/icons';
+import { Popconfirm, message } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 
 const GroupGrantAdmissionButton = ({ groupId, name, callback }) => {
@@ -24,7 +25,7 @@ const GroupGrantAdmissionButton = ({ groupId, name, callback }) => {
       okText="确认"
       cancelText="取消"
     >
-      <Icon type="heart" style={{ marginRight: 8 }} />
+      <HeartOutlined style={{ marginRight: 8 }} />
       同意
     </Popconfirm>
   );

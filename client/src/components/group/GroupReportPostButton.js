@@ -1,6 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
-import { Popconfirm, Icon, message } from "antd";
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Popconfirm, message } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 
 const GroupReportPostButton = ({ groupId, postId, callback }) => {
@@ -24,7 +25,7 @@ const GroupReportPostButton = ({ groupId, postId, callback }) => {
       okText="确认"
       cancelText="取消"
     >
-      <Icon type="info-circle" style={{ marginRight: 8 }} />
+      <InfoCircleOutlined style={{ marginRight: 8 }} />
       举报
     </Popconfirm>
   );

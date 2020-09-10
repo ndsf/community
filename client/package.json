@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/compatible": "^1.0.5",
+    "@ant-design/icons": "^4.2.2",
     "@apollo/react-hooks": "^4.0.0",
     "antd": "^4.6.3",
     "apollo-cache-inmemory": "^1.6.6",

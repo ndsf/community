@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { Button, Form, Input } from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input } from "antd";
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 

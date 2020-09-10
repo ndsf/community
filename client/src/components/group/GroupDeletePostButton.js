@@ -1,7 +1,8 @@
 import React from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
-import { Popconfirm, Icon, message } from "antd";
+import { DeleteOutlined } from '@ant-design/icons';
+import { Popconfirm, message } from "antd";
 import {SEND_NOTIFICATION} from "../../utils/graphql";
 
 const GroupDeletePostButton = ({ groupId, post, callback }) => {
@@ -28,19 +29,19 @@ const GroupDeletePostButton = ({ groupId, post, callback }) => {
   });
 
   return (
-      <Popconfirm
-          title="确认删除帖子吗？"
-          onConfirm={() => {
-            deleteGroupPost();
-            sendNotification();
+    <Popconfirm
+        title="确认删除帖子吗？"
+        onConfirm={() => {
+          deleteGroupPost();
+          sendNotification();
 
-          }}
-          okText="确认"
-          cancelText="取消"
-      >
-        <Icon type="delete" style={{ marginRight: 8 }} />
-        删除
-      </Popconfirm>
+        }}
+        okText="确认"
+        cancelText="取消"
+    >
+      <DeleteOutlined style={{ marginRight: 8 }} />
+      删除
+    </Popconfirm>
   );
 };
 

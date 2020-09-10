@@ -19,7 +19,7 @@ const Groups = () => {
 
     const {
         loading,
-        data: { getGroups: groups }
+        data: { getGroups: groups } = {}
     } = useQuery(FETCH_GROUPS_QUERY);
 
     const {
