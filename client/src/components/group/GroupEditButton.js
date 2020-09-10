@@ -1,5 +1,6 @@
 import React, {useRef, useState} from "react";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import {EditOutlined, UploadOutlined} from '@ant-design/icons';
 import {Form} from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';

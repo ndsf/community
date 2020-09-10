@@ -4,7 +4,8 @@ import '@ant-design/compatible/assets/index.css';
 import {Button, Input, message, Upload} from "antd";
 
 import {useForm} from "../../utils/hooks";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import {FETCH_GROUPS_QUERY} from "../../utils/graphql";
 import {UploadOutlined} from "@ant-design/icons";
 import {slugify} from "transliteration";

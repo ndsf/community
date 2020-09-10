@@ -2,7 +2,8 @@ import React, {useContext, useState} from 'react';
 import {Form} from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import {Breadcrumb, Button, Input, Layout} from "antd";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 import {AuthContext} from '../../context/auth';
 import {useForm} from '../../utils/hooks';
