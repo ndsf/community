@@ -15,154 +15,161 @@ const { Content, Footer } = Layout;
 const { Meta } = Card;
 
 const Groups = () => {
-  const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-  const {
-    loading,
-    data: { getGroups: groups }
-  } = useQuery(FETCH_GROUPS_QUERY);
+    const {
+        loading,
+        data: { getGroups: groups }
+    } = useQuery(FETCH_GROUPS_QUERY);
 
-  const {
-    loading: loadingUser,
-    data: { getUser }
-  } = useQuery(FETCH_USER_QUERY, {
-    variables: {
-      username: user.username
-    }
-  });
+    const {
+        loading: loadingUser,
+        data: getUserData
+    } = useQuery(FETCH_USER_QUERY, {
+        variables: {
+            username: user ? user.username : "admin"
+        },
+        skip: !user
+    });
 
-  return (loading || loadingUser) ? (
-    <>
-      <header
-        className="w3-display-container w3-content w3-wide"
-        style={{ maxWidth: "1500px" }}
-        id="home"
-      >
-        <img
-          className="w3-image"
-          src={groupsImg}
-          alt="Architecture"
-          width="1500"
-          height="800"
-        />
-        <div className="w3-display-middle w3-margin-top w3-center">
-          <h1 className="w3-xxlarge w3-text-white">
-            <span className="w3-padding w3-black w3-opacity-min">
-              <b>Circle</b>
-            </span>{" "}
-            <span className="w3-hide-small w3-text-light-grey">Community</span>
-            <div style={{ margin: "24px 0" }} />
-            <SearchGroupForm />
-          </h1>
-        </div>
-      </header>
-      <Skeleton />
-    </>
-  ) : (
-    <>
-      <header
-        className="w3-display-container w3-content w3-wide"
-        style={{ maxWidth: "1500px" }}
-        id="home"
-      >
-        <img
-          className="w3-image"
-          src={groupsImg}
-          alt="Architecture"
-          width="1500"
-          height="800"
-        />
-        <div className="w3-display-middle w3-margin-top w3-center">
-          <h1 className="w3-xxlarge w3-text-white">
-            <span className="w3-padding w3-black w3-opacity-min">
-              <b>Circle</b>
-            </span>{" "}
-            <span className="w3-hide-small w3-text-light-grey">Community</span>
-            <div style={{ margin: "24px 0" }} />
-            <SearchGroupForm />
-          </h1>
-        </div>
-      </header>
-      <br />
-      <Layout className="layout">
-        <Content style={{ padding: "0 24px" }}>
-          <div>
-            <div className="line-raw">
-              <Divider>
-                <h2 className="raw-title">最新小组</h2>
-              </Divider>
-            </div>
-            <List
-              grid={{
-                gutter: 16,
-                column: 4
-              }}
-              dataSource={groups}
-              renderItem={item => (
-                <List.Item>
-                  <Card>
-                    <Meta
-                      avatar={<Avatar src={item.avatar} />}
-                      title={<Link to={`/groups/${item.id}`}>{item.body}</Link>}
-                      description={
-                        <p>
-                          {item.username} 创建于{" "}
-                          {moment(item.createdAt).fromNow()}
-                        </p>
-                      }
-                    />
-                  </Card>
-                </List.Item>
-              )}
-            />
-            <div className="line-raw">
-              <Divider>
-                <h2 className="raw-title">最热小组</h2>
-              </Divider>
-            </div>
-            <List
-              grid={{
-                gutter: 16,
-                column: 4
-              }}
-              dataSource={[...groups].sort(
-                (first, second) => second.likeCount - first.likeCount
-              )}
-              renderItem={item => (
-                <List.Item>
-                  <Card>
-                    <Meta
-                      avatar={<Avatar src={item.avatar} />}
-                      title={<Link to={`/groups/${item.id}`}>{item.body}</Link>}
-                      description={
-                        <p>
-                          {item.username} 创建于{" "}
-                          {moment(item.createdAt).fromNow()}
-                        </p>
-                      }
-                    />
-                  </Card>
-                </List.Item>
-              )}
-            />
-            {user && getUser.isTeacher && (
-              <>
-                <div className="line-raw">
-                  <Divider>
-                    <h2 className="raw-title">创建小组</h2>
-                  </Divider>
+    return (loading || loadingUser) ? (
+        <>
+            <header
+                className="w3-display-container w3-content w3-wide"
+                style={{ maxWidth: "1500px" }}
+                id="home"
+            >
+                <img
+                    className="w3-image"
+                    src={groupsImg}
+                    alt="Architecture"
+                    width="1500"
+                    height="800"
+                />
+                <div className="w3-display-middle w3-margin-top w3-center">
+                    <h1 className="w3-xxlarge w3-text-white">
+                        <span className="w3-padding w3-black w3-opacity-min">
+                            <b>Circle</b>
+                        </span>{" "}
+                        <span className="w3-hide-small w3-text-light-grey">Community</span>
+                        <div style={{ margin: "24px 0" }} />
+                        <SearchGroupForm />
+                    </h1>
                 </div>
-                <GroupForm />
-              </>
-            )}
-          </div>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Circle Community Created by ndsf
-        </Footer>
-      </Layout>
-    </>
-  );
+            </header>
+            <Skeleton />
+        </>
+    ) : (
+        <>
+            <header
+                className="w3-display-container w3-content w3-wide"
+                style={{ maxWidth: "1500px" }}
+                id="home"
+            >
+                <img
+                    className="w3-image"
+                    src={groupsImg}
+                    alt="Architecture"
+                    width="1500"
+                    height="800"
+                />
+                <div className="w3-display-middle w3-margin-top w3-center">
+                    <h1 className="w3-xxlarge w3-text-white">
+                        <span className="w3-padding w3-black w3-opacity-min">
+                            <b>Circle</b>
+                        </span>{" "}
+                        <span className="w3-hide-small w3-text-light-grey">Community</span>
+                        <div style={{ margin: "24px 0" }} />
+                        <SearchGroupForm />
+                    </h1>
+                </div>
+            </header>
+            <br />
+            <Layout className="layout">
+                <Content style={{ padding: "0 24px" }}>
+                    <div>
+                        <div className="line-raw">
+                            <Divider>
+                                <h2 className="raw-title">最新小组</h2>
+                            </Divider>
+                        </div>
+                        <List
+                            grid={{
+                                gutter: 16,
+                                column: 4
+                            }}
+                            dataSource={groups}
+                            pagination={{
+                                pageSize: 48,
+                            }}
+                            renderItem={item => (
+                                <List.Item>
+                                    <Card>
+                                        <Meta
+                                            avatar={<Avatar src={item.avatar ? item.avatar : "/logo192.png"} />}
+                                            title={<Link to={`/groups/${item.id}`}>{item.body}</Link>}
+                                            description={
+                                                <p>
+                                                    {item.username} 创建于{" "}
+                                                    {moment(item.createdAt).fromNow()}
+                                                </p>
+                                            }
+                                        />
+                                    </Card>
+                                </List.Item>
+                            )}
+                        />
+                        <div className="line-raw">
+                            <Divider>
+                                <h2 className="raw-title">最热小组</h2>
+                            </Divider>
+                        </div>
+                        <List
+                            grid={{
+                                gutter: 16,
+                                column: 4
+                            }}
+                            pagination={{
+                                pageSize: 48,
+                            }}
+                            dataSource={[...groups].sort(
+                                (first, second) => second.likeCount - first.likeCount
+                            )}
+                            renderItem={item => (
+                                <List.Item>
+                                    <Card>
+                                        <Meta
+                                            avatar={<Avatar src={item.avatar ? item.avatar : "/logo192.png"} />}
+                                            title={<Link to={`/groups/${item.id}`}>{item.body}</Link>}
+                                            description={
+                                                <p>
+                                                    {item.username} 创建于{" "}
+                                                    {moment(item.createdAt).fromNow()}
+                                                </p>
+                                            }
+                                        />
+                                    </Card>
+                                </List.Item>
+                            )}
+                        />
+                        {getUserData && getUserData.getUser.isTeacher && (
+                            <>
+                                <div className="line-raw">
+                                    <Divider>
+                                        <h2 className="raw-title">创建小组</h2>
+                                    </Divider>
+                                </div>
+                                <GroupForm />
+                            </>
+                        )}
+                    </div>
+                </Content>
+                <Footer style={{ textAlign: "center" }}>
+                    Circle Community Created by ndsf
+                </Footer>
+            </Layout>
+        </>
+    );
 };
 
 export default Groups;
