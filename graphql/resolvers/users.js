@@ -160,33 +160,23 @@ module.exports = {
         }); */
 
         let transporter = nodemailer.createTransport({
-          service: "qq",
-          host: "smtp.qq.com",
-          port: 587,
-          secure: false, // secure:true for port 465, secure:false for port 587
+          service: process.env.SMTP_SERVICE, //service: "qq",
+          host: process.env.SMTP_HOST, // host: "smtp.qq.com",
+          port: process.env.SMTP_PORT, // port: 587,
+          secure: process.env.SMTP_SECURE, // secure: false, // secure:true for port 465, secure:false for port 587
           auth: {
-            user: "619455181@qq.com",
-            pass: "zhzkszbihraubeac" //  授权码，不是qq密码或者独立密码
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS //  授权码，不是qq密码或者独立密码
           }
         });
         let mailOptions = {
-          from: "619455181@qq.com", // sender address
+          from: process.env.SMTP_USER, // sender address
           to: email, // list of receivers
           subject: "您的密码已被重置", // Subject line
           text: `您的新密码为 ${password} ——${new Date()}`, // plain text body
           html: `您的新密码为 ${password} ——${new Date()}` // html body
         };
 
-        // send mail with defined transport object
-        /* let mailOptions = {
-          from: "ndsffx17@163.com", // sender address
-          to: email, // list of receivers
-          subject: "您的密码已被重置", // Subject line
-          text: `您的新密码为 ${password} ——${new Date()}`, // plain text body
-          html: `您的新密码为 ${password} ——${new Date()}` // html body
-        }; */
-        //let info = await transporter.sendMail(mailOptions);
-        //console.log(info);
         await transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
             return console.log(error);

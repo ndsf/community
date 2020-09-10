@@ -29,6 +29,12 @@ Create a new '.env' file under your root folder, paste the following code into i
 MONGO_URI='mongodb://db_username:db_password@db_url:db_port/db_name'
 SECRET_KEY='TopSecretDontLetOtherPeopleKnow'
 PORT=5000
+SMTP_SERVICE='qq'
+SMTP_HOST='smtp.qq.com'
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER='619455181@qq.com'
+SMTP_PASS='zhzksz*****ubeac'
 ```
 
 For example:
@@ -36,6 +42,12 @@ For example:
 MONGO_URI='mongodb://localhost/group'
 SECRET_KEY='TopSecretDontLetOtherPeopleKnow'
 PORT=5000
+SMTP_SERVICE='qq'
+SMTP_HOST='smtp.qq.com'
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER='619455181@qq.com'
+SMTP_PASS='zhzksz*****ubeac'
 ```
 
 ### Up and Running
