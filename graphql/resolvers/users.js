@@ -16,21 +16,21 @@ const User = require("../../models/User");
 const generateToken = user => {
   // modify this after adding keys to the user model
   return jwt.sign(
-    {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      notifications: user.notifications
-    },
-    process.env.SECRET_KEY,
-    {expiresIn: "24h"}
+      {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        notifications: user.notifications
+      },
+      process.env.SECRET_KEY,
+      {expiresIn: "24h"}
   );
 };
 
 const makeid = length => {
   var result = "";
   var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   var charactersLength = characters.length;
   for (var i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -76,18 +76,18 @@ module.exports = {
       };
     },
     async register(
-      _,
-      {
-        registerInput: {username, email, password, confirmPassword}
-      },
-      context,
-      info
+        _,
+        {
+          registerInput: {username, email, password, confirmPassword}
+        },
+        context,
+        info
     ) {
       const {valid, errors} = validateRegisterInput(
-        username,
-        email,
-        password,
-        confirmPassword
+          username,
+          email,
+          password,
+          confirmPassword
       );
 
       if (!valid) {
@@ -212,6 +212,15 @@ module.exports = {
         await receiverUser.save();
         return '发送成功';
       } else throw new UserInputError("User not found", {errors});
+    },
+    clearNotification: async(_, data, context) => {
+      const {username} = checkAuth(context);
+      const user = await User.findOne({username});
+      if (user) {
+        user.notifications.splice(0, user.notifications.length);
+        await user.save();
+        return "清空成功";
+      } else throw new AuthenticationError("Action not allowed");
     }
   }
 };
