@@ -33,8 +33,10 @@ const Group = props => {
   const groupId = props.match.params.groupId;
   const { user } = useContext(AuthContext);
   const titleInputRef = useRef(null);
+  const searchTitleInputRef = useRef(null);
   const commentInputRef = useRef(null);
   const [title, setTitle] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
   const [comment, setComment] = useState("");
 
   const IconText = ({ type, text }) => (
@@ -136,6 +138,23 @@ const Group = props => {
                       </Button>
                     </div>
                   </Card>
+                  {/* 搜索帖子 */}
+                  <Card
+                      title="搜索帖子"
+                      bordered={false}
+                      style={{ marginBottom: "24px" }}
+                  >
+                    <div>
+                      <Input
+                          type="text"
+                          placeholder="搜索标题"
+                          name="searchTitle"
+                          value={searchTitle}
+                          onChange={event => setSearchTitle(event.target.value)}
+                          ref={searchTitleInputRef}
+                      />
+                    </div>
+                  </Card>
                   {/* 帖子列表 */}
                   <Card
                       title={`帖子(${postCount})`}
@@ -148,7 +167,7 @@ const Group = props => {
                           pageSize: 20,
                         }}
                         size="large"
-                        dataSource={posts}
+                        dataSource={posts.filter(post => post.title.includes(searchTitle))}
                         renderItem={item => {
                           const canDelete =
                               user &&
