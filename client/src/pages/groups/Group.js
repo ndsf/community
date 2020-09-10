@@ -38,9 +38,9 @@ const Group = props => {
   const [comment, setComment] = useState("");
 
   const IconText = ({ type, text }) => (
-    <span>
+      <span>
       <Icon type={type} style={{ marginRight: 8 }} />
-      {text}
+        {text}
     </span>
   );
 
@@ -83,172 +83,175 @@ const Group = props => {
     ];
 
     const isAdmin =
-      user &&
-      (admins.find(admin => admin.username === user.username) ||
-        username === user.username);
+        user &&
+        (admins.find(admin => admin.username === user.username) ||
+            username === user.username);
 
     groupMarkup = (
-      <Layout className="layout">
-        <Content style={{ padding: "0 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>
-              <Link to="/groups">小组</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link to={`/groups/${id}`}>{body}</Link>
-            </Breadcrumb.Item>
-          </Breadcrumb>
-          <div>
-            <Row gutter={24}>
-              <Col lg={17} md={24}>
-                {/* 发表帖子 */}
-                <Card
-                  title="发表帖子"
-                  bordered={false}
-                  style={{ marginBottom: "24px" }}
-                >
-                  <div>
-                    <Input
-                      type="text"
-                      placeholder="标题"
-                      name="title"
-                      value={title}
-                      onChange={event => setTitle(event.target.value)}
-                      ref={titleInputRef}
-                    />
-                    <div style={{ margin: "24px 0" }} />
-                    <TextArea
-                      type="text"
-                      placeholder="需要加入小组才能进行发表，内容不能少于25字。"
-                      name="comment"
-                      value={comment}
-                      onChange={event => setComment(event.target.value)}
-                      ref={commentInputRef}
-                      autosize={{ minRows: 4, maxRows: 100 }}
-                    />
-                    <div style={{ margin: "24px 0" }} />
-                    <Button
-                      type="submit"
-                      disabled={comment.trim().length < 25}
-                      onClick={submitComment}
-                    >
-                      发表
-                    </Button>
-                  </div>
-                </Card>
-                {/* 帖子列表 */}
-                <Card
-                  title={`帖子(${postCount})`}
-                  bordered={false}
-                  style={{ marginBottom: "24px" }}
-                >
-                  <List
-                    itemLayout="vertical"
-                    size="large"
-                    dataSource={posts}
-                    renderItem={item => {
-                      const canDelete =
-                        user &&
-                        (user.username === item.username ||
-                          admins.find(
-                            admin => admin.username === user.username
-                          ) ||
-                          username === user.username);
+        <Layout className="layout">
+          <Content style={{ padding: "0 24px" }}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>
+                <Link to="/groups">小组</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={`/groups/${id}`}>{body}</Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+            <div>
+              <Row gutter={24}>
+                <Col lg={17} md={24}>
+                  {/* 发表帖子 */}
+                  <Card
+                      title="发表帖子"
+                      bordered={false}
+                      style={{ marginBottom: "24px" }}
+                  >
+                    <div>
+                      <Input
+                          type="text"
+                          placeholder="标题"
+                          name="title"
+                          value={title}
+                          onChange={event => setTitle(event.target.value)}
+                          ref={titleInputRef}
+                      />
+                      <div style={{ margin: "24px 0" }} />
+                      <TextArea
+                          type="text"
+                          placeholder="需要加入小组才能进行发表，内容不能少于25字。"
+                          name="comment"
+                          value={comment}
+                          onChange={event => setComment(event.target.value)}
+                          ref={commentInputRef}
+                          autosize={{ minRows: 4, maxRows: 100 }}
+                      />
+                      <div style={{ margin: "24px 0" }} />
+                      <Button
+                          type="submit"
+                          disabled={comment.trim().length < 25}
+                          onClick={submitComment}
+                      >
+                        发表
+                      </Button>
+                    </div>
+                  </Card>
+                  {/* 帖子列表 */}
+                  <Card
+                      title={`帖子(${postCount})`}
+                      bordered={false}
+                      style={{ marginBottom: "24px" }}
+                  >
+                    <List
+                        itemLayout="vertical"
+                        pagination={{
+                          pageSize: 20,
+                        }}
+                        size="large"
+                        dataSource={posts}
+                        renderItem={item => {
+                          const canDelete =
+                              user &&
+                              (user.username === item.username ||
+                                  admins.find(
+                                      admin => admin.username === user.username
+                                  ) ||
+                                  username === user.username);
 
-                      let actions = [
-                        <GroupLikePostButton
-                          user={user}
-                          groupId={id}
-                          post={item}
-                        />,
-                        <IconText
-                          type="message"
-                          text={item.commentCount}
-                          key="list-vertical-message"
-                        />
-                      ];
+                          let actions = [
+                            <GroupLikePostButton
+                                user={user}
+                                groupId={id}
+                                post={item}
+                            />,
+                            <IconText
+                                type="message"
+                                text={item.commentCount}
+                                key="list-vertical-message"
+                            />
+                          ];
 
-                      if (canDelete) {
-                        actions.push(
-                          <GroupDeletePostButton
-                            groupId={id}
-                            postId={item.id}
-                          />
-                        );
-                      }
+                          if (canDelete) {
+                            actions.push(
+                                <GroupDeletePostButton
+                                    groupId={id}
+                                    postId={item.id}
+                                />
+                            );
+                          }
 
-                      if (isAdmin) {
-                        actions.push(
-                          <GroupQualifiedPostButton
-                            groupId={id}
-                            postId={item.id}
-                          />,
-                          <GroupTopPostButton groupId={id} postId={item.id} />
-                        );
-                      }
+                          if (isAdmin) {
+                            actions.push(
+                                <GroupQualifiedPostButton
+                                    groupId={id}
+                                    postId={item.id}
+                                />,
+                                <GroupTopPostButton groupId={id} postId={item.id} />
+                            );
+                          }
 
-                      actions.push(
-                        <GroupReportPostButton groupId={id} postId={item.id} />
-                      );
+                          actions.push(
+                              <GroupReportPostButton groupId={id} postId={item.id} />
+                          );
 
-                      return (
-                        <List.Item key={item.title} actions={actions}>
-                          <List.Item.Meta
-                            avatar={
-                              <Link to={`/users/${item.username}`}>
-                                <Avatar
-                                  style={{
-                                    color: "#f56a00",
-                                    backgroundColor: "#fde3cf"
-                                  }}
-                                >
-                                  {item.username}
-                                </Avatar>
-                              </Link>
-                            }
-                            title={
-                              <Link to={`/groups/${id}/posts/${item.id}`}>
-                                {item.title}
-                                {item.qualified && (
-                                  <span>
+                          return (
+                              <List.Item key={item.title} actions={actions}>
+                                <List.Item.Meta
+                                    avatar={
+                                      <Link to={`/users/${item.username}`}>
+                                        <Avatar
+                                            style={{
+                                              color: "#f56a00",
+                                              backgroundColor: "#fde3cf"
+                                            }}
+                                        >
+                                          {item.username}
+                                        </Avatar>
+                                      </Link>
+                                    }
+                                    title={
+                                      <Link to={`/groups/${id}/posts/${item.id}`}>
+                                        {item.title}
+                                        {item.qualified && (
+                                            <span>
                                     {" "}
-                                    <Icon type="star" />{" "}
+                                              <Icon type="star" />{" "}
                                   </span>
-                                )}
-                                {item.top && (
-                                  <span>
+                                        )}
+                                        {item.top && (
+                                            <span>
                                     {" "}
-                                    <Icon type="up-circle" />{" "}
+                                              <Icon type="up-circle" />{" "}
                                   </span>
-                                )}
-                              </Link>
-                            }
-                            description={`${item.username} 发表于 ${moment(
-                              item.createdAt
-                            ).fromNow()}`}
-                          />
-                          {<ReactMarkdown source={item.body} />}
-                        </List.Item>
-                      );
-                    }}
+                                        )}
+                                      </Link>
+                                    }
+                                    description={`${item.username} 发表于 ${moment(
+                                        item.createdAt
+                                    ).fromNow()}`}
+                                />
+                                {<ReactMarkdown source={item.body} />}
+                              </List.Item>
+                          );
+                        }}
+                    />
+                  </Card>
+                </Col>
+                <Col lg={7} md={24}>
+                  <GroupInformationCard
+                      group={getGroup}
+                      deleteGroupCallback={deleteGroupCallback}
                   />
-                </Card>
-              </Col>
-              <Col lg={7} md={24}>
-                <GroupInformationCard
-                  group={getGroup}
-                  deleteGroupCallback={deleteGroupCallback}
-                />
-                <GroupAdminCard group={getGroup} />
-                <GroupUserCard group={getGroup} />
-              </Col>
-            </Row>
-          </div>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Circle Community Created by ndsf
-        </Footer>
-      </Layout>
+                  <GroupAdminCard group={getGroup} />
+                  <GroupUserCard group={getGroup} />
+                </Col>
+              </Row>
+            </div>
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            Circle Community Created by ndsf
+          </Footer>
+        </Layout>
     );
   }
 
