@@ -184,7 +184,6 @@ const Group = props => {
                             actions.push(
                                 <GroupDeletePostButton
                                     groupId={id}
-                                    postId={item.id}
                                     post={item}
                                 />
                             );
