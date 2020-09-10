@@ -215,13 +215,17 @@ const Group = props => {
                                         {item.qualified && (
                                             <span>
                                     {" "}
-                                              <Icon type="star" />{" "}
+                                              <Icon type="star" style={{
+                                                color: "red"
+                                              }} />{" 精华 "}
                                   </span>
                                         )}
                                         {item.top && (
                                             <span>
                                     {" "}
-                                              <Icon type="up-circle" />{" "}
+                                              <Icon type="up-circle" style={{
+                                                color: "red"
+                                              }}/>{" 置顶 "}
                                   </span>
                                         )}
                                       </Link>
