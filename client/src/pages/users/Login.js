@@ -1,28 +1,27 @@
-import React, { useContext, useState } from "react";
-import { Form, Button } from "semantic-ui-react";
-import { useMutation } from "@apollo/react-hooks";
-import { Avatar, Layout } from "antd";
-import { Link } from "react-router-dom";
-import gql from "graphql-tag";
+import React, { useContext, useState } from 'react';
+import { Button, Form, Input } from "antd";
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
-import { AuthContext } from "../../context/auth";
-import { useForm } from "../../utils/hooks";
-const { Content } = Layout;
+import { AuthContext } from '../../context/auth';
+import { useForm } from '../../utils/hooks';
+
+
 const Login = props => {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
-    username: "",
-    password: ""
+    username: '',
+    password: ''
   });
 
-  const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+  const [loginUser] = useMutation(LOGIN_USER, {
     update(
-      _,
-      {
-        data: { login: userData }
-      }
+        _,
+        {
+          data: { login: userData }
+        }
     ) {
       context.login(userData);
       props.history.goBack();
@@ -38,46 +37,43 @@ const Login = props => {
   }
 
   return (
-    <Content style={{ padding: "0 300px" }}>
-      <div style={{ margin: "24px 0" }} />
-      <Avatar size={64} icon="user" position="center" />
-      <div style={{ margin: "24px 0" }} />
-      <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
-        <Form.Input
-          label="用户名"
-          placeholder="Username"
-          name="username"
-          type="text"
-          value={values.username}
-          error={errors.username ? true : false}
-          onChange={onChange}
-        />
-        <Form.Input
-          label="密码"
-          placeholder="Password"
-          name="password"
-          type="password"
-          value={values.password}
-          error={errors.password ? true : false}
-          onChange={onChange}
-        />
-        <p>
-          <Link to="/reset-password">忘记密码</Link>
-        </p>
-        <Button type="submit" primary>
-          登录
-        </Button>
-      </Form>
-      {Object.keys(errors).length > 0 && (
-        <div className="ui error message">
-          <ul className="list">
-            {Object.values(errors).map(err => (
-              <li key={err}>{err}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </Content>
+      <div>
+        <Form layout="vertical" onSubmit={onSubmit}>
+          <h1>登录</h1>
+          <Form.Item label="用户名">
+            <Input
+                placeholder="Username"
+                name="username"
+                type="text"
+                value={values.username}
+                error={errors.username ? 1 : 0}
+                onChange={onChange}
+            />
+          </Form.Item>
+          <Form.Item label="密码">
+            <Input
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={values.password}
+                error={errors.password ? 1 : 0}
+                onChange={onChange}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button htmlType="submit" type="primary">
+              登录
+            </Button>
+          </Form.Item>
+        </Form>
+        {Object.keys(errors).length > 0 && (
+            <ul className="list">
+              {Object.values(errors).map(err => (
+                  <li key={err}>{err}</li>
+              ))}
+            </ul>
+        )}
+      </div>
   );
 };
 

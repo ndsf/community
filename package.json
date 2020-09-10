@@ -20,8 +20,6 @@
     "mongoose": "^5.7.5",
     "nodemailer": "^6.3.0",
     "react-router-dom": "^5.0.1",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.3",
     "transliteration": "^2.1.5"
   },
   "devDependencies": {
