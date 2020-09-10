@@ -63,7 +63,7 @@ module.exports = {
       const user = checkAuth(context);
 
       if (body.trim() === "") {
-        throw new Error("Group body must not be empty");
+        throw new UserInputError("Group body must not be empty");
       }
 
       const newGroup = new Group({
@@ -80,28 +80,29 @@ module.exports = {
         createdAt: new Date().toISOString()
       });
 
-      const group = await newGroup.save();
+      return await newGroup.save();
+    },
+    editGroup: async (_, {groupId, body, bio, avatar}, context) => {
+      const user = checkAuth(context);
 
-      context.pubsub.publish("NEW_GROUP", {
-        newGroup: group
-      });
+      if (body.trim() === "")
+        throw new UserInputError("Group body must not be empty");
 
-      return group;
+      const group = await Group.findById(groupId);
+      if (user.username === group.username || group.admins.find(admin => admin.username === user.username)) {
+        group.body = body;
+        group.bio = bio;
+        group.avatar = avatar;
+        return await group.save();
+      } else throw new AuthenticationError("Action not allowed");
     },
     deleteGroup: async (_, {groupId}, context) => {
       const user = checkAuth(context);
-
-      try {
-        const group = await Group.findById(groupId);
-        if (user.username === group.username) {
-          await group.delete();
-          return "Group deleted successfully";
-        } else {
-          throw new AuthenticationError("Action not allowed");
-        }
-      } catch (err) {
-        throw new Error(err);
-      }
+      const group = await Group.findById(groupId);
+      if (user.username === group.username) {
+        await group.delete();
+        return "Group deleted successfully";
+      } else throw new AuthenticationError("Action not allowed");
     },
     likeGroup: async (_, {groupId}, context) => {
       const {username} = checkAuth(context);
