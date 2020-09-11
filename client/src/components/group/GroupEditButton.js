@@ -91,7 +91,7 @@ const GroupEditButton = ({groupId, group, callback}) => {
                     </Form.Item>
                     <Form.Item label="简介">
                         <TextArea
-                            placeholder="简介"
+                            placeholder="请输入圈子简介、圈子规则……"
                             name="bio"
                             onChange={event => setBio(event.target.value)}
                             value={bio}

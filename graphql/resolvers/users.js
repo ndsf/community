@@ -135,8 +135,7 @@ module.exports = {
         throw new UserInputError("Something went wrong", {errors});
       }
       user.password = await bcrypt.hash(password, 12);
-      await user.save();
-      return user;
+      return await user.save();
     },
     resetPassword: async (_, {username, email}, context) => {
       const user = await User.findOne({username, email});
@@ -168,8 +167,7 @@ module.exports = {
           console.log("Message %s sent: %s", info.messageId, info.response);
         });
 
-        await user.save();
-        return user;
+        return await user.save();
       } else throw new UserInputError("User not found", {errors});
     },
     sendNotification: async (_, {username: receiver, body}, context) => {
@@ -183,8 +181,7 @@ module.exports = {
           createdAt: new Date().toISOString()
         });
 
-        await receiverUser.save();
-        return receiverUser;
+        return await receiverUser.save();
       } else throw new UserInputError("User not found", {errors});
     },
     clearNotification: async(_, data, context) => {
@@ -192,8 +189,15 @@ module.exports = {
       const user = await User.findOne({username});
       if (user) {
         user.notifications.splice(0, user.notifications.length);
-        await user.save();
-        return user;
+        return await user.save();
+      } else throw new AuthenticationError("Action not allowed");
+    },
+    grantTeacher: async(_, {username}, context) => {
+      const {username: myName} = checkAuth(context);
+      if (myName === "admin") {
+        const user = await User.findOne({username});
+        user.isTeacher = !user.isTeacher;
+        return await user.save();
       } else throw new AuthenticationError("Action not allowed");
     }
   }

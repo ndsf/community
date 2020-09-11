@@ -6,6 +6,7 @@ import {Avatar, Breadcrumb, Card, Col, Layout, List, Row} from "antd";
 import moment from "moment";
 import {FETCH_GROUPS_QUERY, FETCH_USER_QUERY} from "../utils/graphql";
 import UserClearNotificationButton from "../components/user/UserClearNotificationButton";
+import GrantTeacherForm from "../components/user/GrantTeacherForm";
 
 const {Content, Footer} = Layout;
 const {Meta} = Card;
@@ -46,6 +47,10 @@ const Home = props => {
         {
             key: "group",
             tab: "小组"
+        },
+        {
+            key: "settings",
+            tab: "管理"
         }
     ] : [
         {
@@ -142,6 +147,9 @@ const Home = props => {
                     );
                 }}
             />
+        ),
+        settings: (
+            <GrantTeacherForm/>
         )
     };
 

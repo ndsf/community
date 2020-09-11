@@ -77,7 +77,7 @@ const GroupForm = () => {
             </Form.Item>
             <Form.Item label="简介">
                 <TextArea
-                    placeholder="简介"
+                    placeholder="请输入圈子简介、圈子规则……"
                     name="bio"
                     onChange={onChange}
                     value={values.bio}

@@ -63,7 +63,7 @@ module.exports = gql`
     token: String!
     username: String!
     createdAt: String!
-    isTeacher: Boolean!
+    isTeacher: Boolean
     notifications: [Notification]!
   }
 
@@ -83,6 +83,7 @@ module.exports = gql`
   }
 
   type Mutation {
+    grantTeacher(username: String!): User!
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
     changePassword(password: String!): User!
