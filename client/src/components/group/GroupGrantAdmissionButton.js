@@ -47,6 +47,7 @@ const GRANT_GROUP_ADMISSION_MUTATION = gql`
                 createdAt
             }
             likeCount
+            admissionCount
         }
     }
 `;

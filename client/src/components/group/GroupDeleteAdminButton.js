@@ -25,7 +25,7 @@ const GroupDeleteAdminButton = ({ groupId, name, callback }) => {
       okText="确认"
       cancelText="取消"
     >
-      <DeleteOutlined style={{ marginRight: 8 }} />
+      <DeleteOutlined style={{ marginLeft: 4, marginRight: 4 }} />
       撤销
     </Popconfirm>
   );

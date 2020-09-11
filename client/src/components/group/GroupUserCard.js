@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, Avatar, List } from "antd";
 import moment from "moment";
 import { AuthContext } from "../../context/auth";
+import GroupDeleteLikeButton from "./GroupDeleteLikeButton";
 
 const GroupUserCard = ({ group: { id, body, username, admins, likes } }) => {
   const { user } = useContext(AuthContext);
@@ -49,7 +50,9 @@ const GroupUserCard = ({ group: { id, body, username, admins, likes } }) => {
               title={
                 <>
                   {item.username}
-                {/*  TODO add a remove user button? */}
+                    {user && (user.username === username || admins.find(admin => admin.username === user.username)) && item.username !== user.username && (
+                        <GroupDeleteLikeButton groupId={id} name={item.username} />
+                    )}
                 </>
               }
               description={moment(item.createdAt).fromNow()}

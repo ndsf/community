@@ -481,6 +481,13 @@ module.exports = {
 
           return group;
         } else if (group.likes.find(like => like.username === name)) {
+          // if the user is admin...
+          if (group.admins.find(admin => admin.username === name)) {
+            const adminIndex = group.admins.findIndex(a => a.username === name);
+            admin = group.admins[adminIndex];
+            group.admins.splice(adminIndex, 1);
+          }
+
           const likeIndex = group.likes.findIndex(a => a.username === name);
           like = group.likes[likeIndex];
           group.likes.splice(likeIndex, 1);
