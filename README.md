@@ -1,4 +1,4 @@
-# Circle Community Social App - MERNG Stack
+# Circle Community Social App (圈子社区) - MERNG Stack
 
 MERNG stands for MongoDB, Express, React, Node.js & GraphQL. 
 
