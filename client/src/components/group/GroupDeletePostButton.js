@@ -14,6 +14,10 @@ const GroupDeletePostButton = ({ groupId, post, callback }) => {
     update(proxy) {
       message.success("帖子已删除");
       if (callback) callback();
+    },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
     }
   });
 
@@ -25,6 +29,10 @@ const GroupDeletePostButton = ({ groupId, post, callback }) => {
     update(proxy) {
       message.success(`已发送通知给${post.username}`);
       if (callback) callback();
+    },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
     }
   });
 

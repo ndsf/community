@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from "react";
 import {AuthContext} from "../../context/auth";
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Avatar, Button, Card, Comment, Input, List } from "antd";
+import {Avatar, Button, Card, Comment, Input, List, message} from "antd";
 import {useMutation} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import GroupGrantAdmissionButton from "./GroupGrantAdmissionButton";
@@ -24,7 +24,11 @@ const GroupApplyAdmissionCard = ({group: {id: groupId, username, likes, admissio
     variables: {
       groupId: groupId,
       body: admission
-    }
+    },
+      onError(err) {
+          console.error(err);
+          message.error(err.message);
+      }
   });
 
   return (

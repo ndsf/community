@@ -18,6 +18,10 @@ const ChangePassword = props => {
     update() {
       message.success("修改成功");
       props.history.push("/");
+    },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
     }
   });
 

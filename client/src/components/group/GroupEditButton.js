@@ -62,6 +62,10 @@ const GroupEditButton = ({groupId, group, callback}) => {
                 bodyInputRef.current.blur();
                 bioInputRef.current.blur();
                 avatarInputRef.current.blur();
+            },
+            onError(err) {
+                console.error(err);
+                message.error(err.message);
             }
         }
     );

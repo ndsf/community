@@ -17,7 +17,7 @@ import {
   Comment,
   Tooltip,
   List,
-  Skeleton,
+  Skeleton, message,
 } from "antd";
 import moment from "moment";
 
@@ -73,6 +73,10 @@ const GroupPost = props => {
         postId: postId,
         title: "",
         body: comment
+      },
+      onError(err) {
+        console.error(err);
+        message.error(err.message);
       }
     }
   );

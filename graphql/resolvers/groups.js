@@ -63,8 +63,12 @@ module.exports = {
       const user = checkAuth(context);
 
       if (body.trim() === "") {
-        throw new UserInputError("Group body must not be empty");
+        throw new UserInputError("小组名不能为空");
       }
+
+      // check if exists a group with same name
+      const tempGroup = await Group.findOne({body});
+      if (tempGroup) throw new UserInputError("存在同名小组");
 
       const newGroup = new Group({
         body: body,

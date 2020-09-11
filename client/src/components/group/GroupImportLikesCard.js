@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from "react";
 import {AuthContext} from "../../context/auth";
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Button, Card, Input } from "antd";
+import {Button, Card, Input, message} from "antd";
 import {useMutation} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
@@ -21,7 +21,11 @@ const GroupImportLikesCard = ({group: {id: groupId, username, admins}}) => {
     variables: {
       groupId: groupId,
       usernames: usernames
-    }
+    },
+      onError(err) {
+          console.error(err);
+          message.error(err.message);
+      }
   });
 
   return (

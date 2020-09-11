@@ -21,6 +21,10 @@ const GroupDeleteButton = ({ groupId, callback }) => {
       proxy.writeQuery({ query: FETCH_GROUPS_QUERY, data });
 
       if (callback) callback();
+    },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
     }
   });
 

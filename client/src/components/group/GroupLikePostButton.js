@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { Icon as LegacyIcon } from '@ant-design/compatible';
 import { LikeOutlined } from '@ant-design/icons';
+import {message} from "antd";
 
 const GroupLikePostButton = ({
   user,
@@ -18,7 +19,11 @@ const GroupLikePostButton = ({
   }, [user, likes]);
 
   const [likeGroup] = useMutation(LIKE_GROUP_POST_MUTATION, {
-    variables: { groupId: groupId, postId: id }
+    variables: { groupId: groupId, postId: id },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
+    }
   });
 
   return user ? (

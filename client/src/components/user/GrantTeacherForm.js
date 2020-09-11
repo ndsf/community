@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from "react";
 import {AuthContext} from "../../context/auth";
 import {Form} from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import {Button, Input} from "antd";
+import {Button, Input, message} from "antd";
 import {useMutation} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
@@ -22,7 +22,8 @@ const GrantTeacherForm = () => {
             username: teacherUsername
         },
         onError(err) {
-            console.log(err)
+            console.error(err);
+            message.error(err.message);
         }
     });
 

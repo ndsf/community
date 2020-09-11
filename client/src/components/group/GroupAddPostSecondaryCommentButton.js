@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { MessageOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Input, Modal } from "antd";
+import {Input, message, Modal} from "antd";
 import { useMutation } from "@apollo/react-hooks";
 const { TextArea } = Input;
 const GroupAddPostSecondaryCommentButton = ({
@@ -45,6 +45,10 @@ const GroupAddPostSecondaryCommentButton = ({
         setTitle("");
         setBody("");
         bodyInputRef.current.blur();
+      },
+      onError(err) {
+        console.error(err);
+        message.error(err.message);
       }
     }
   );

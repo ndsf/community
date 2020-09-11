@@ -12,6 +12,10 @@ const GroupReportPostButton = ({ groupId, postId, callback }) => {
     },
     update(proxy) {
       if (callback) callback();
+    },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
     }
   });
 

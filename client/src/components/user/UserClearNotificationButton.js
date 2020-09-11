@@ -9,6 +9,10 @@ const UserClearNotificationButton = ({callback}) => {
         update(proxy, result) {
             message.success("清空成功");
             if (callback) callback();
+        },
+        onError(err) {
+            console.error(err);
+            message.error(err.message);
         }
     });
 

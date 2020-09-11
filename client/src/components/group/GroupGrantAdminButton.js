@@ -12,6 +12,10 @@ const GroupGrantAdminButton = ({ groupId, name, callback }) => {
     },
     update(proxy) {
       if (callback) callback();
+    },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
     }
   });
 

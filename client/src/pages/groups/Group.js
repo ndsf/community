@@ -5,7 +5,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import ReactMarkdown from "react-markdown";
 import { Icon as LegacyIcon } from '@ant-design/compatible';
 import { StarOutlined, UpCircleOutlined } from '@ant-design/icons';
-import { Layout, Breadcrumb, Input, Row, Col, Card, Button, Avatar, List, Skeleton } from "antd";
+import {Layout, Breadcrumb, Input, Row, Col, Card, Button, Avatar, List, Skeleton, message} from "antd";
 import moment from "moment";
 import { AuthContext } from "../../context/auth";
 import GroupDeletePostButton from "../../components/group/GroupDeletePostButton";
@@ -55,6 +55,10 @@ const Group = props => {
       groupId: groupId,
       title: title,
       body: comment
+    },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
     }
   });
 

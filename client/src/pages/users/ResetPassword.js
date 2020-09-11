@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import { UserOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Input, Avatar, Layout, Button, Result } from "antd";
+import {Input, Avatar, Layout, Button, Result, message} from "antd";
 import { useForm } from "../../utils/hooks";
 const { Content } = Layout;
 const ResetPassword = props => {
@@ -17,7 +17,11 @@ const ResetPassword = props => {
   const [ok, setOk] = useState(false);
 
   const [resetPassword] = useMutation(RESET_PASSWORD, {
-    variables: values
+    variables: values,
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
+    }
   });
 
   function resetPasswordCallback() {

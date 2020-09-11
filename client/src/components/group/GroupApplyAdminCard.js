@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from "react";
 import {AuthContext} from "../../context/auth";
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Avatar, Button, Card, Comment, Input, List } from "antd";
+import {Avatar, Button, Card, Comment, Input, List, message} from "antd";
 import GroupGrantAdminButton from "./GroupGrantAdminButton";
 import {Link} from "react-router-dom";
 import moment from "moment";
@@ -27,7 +27,11 @@ const GroupApplyAdminCard = ({group: {id: groupId, username, likes, admins, appl
       groupId: groupId,
       title: title,
       body: comment
-    }
+    },
+      onError(err) {
+          console.error(err);
+          message.error(err.message);
+      }
   });
 
   return (

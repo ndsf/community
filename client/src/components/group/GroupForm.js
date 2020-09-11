@@ -57,6 +57,10 @@ const GroupForm = () => {
             values.body = "";
             values.bio = "";
             values.avatar = "";
+        },
+        onError(err) {
+            console.error(err);
+            message.error(err.message);
         }
     });
 

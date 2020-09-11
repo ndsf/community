@@ -15,7 +15,11 @@ const GroupLikeButton = ({ user, group: { id, username, likeCount, likes, admins
   }, [user, likes]);
 
   const [likeGroup] = useMutation(LIKE_GROUP_MUTATION, {
-    variables: { groupId: id }
+    variables: { groupId: id },
+    onError(err) {
+      console.error(err);
+      message.error(err.message);
+    }
   });
 
   const likeGroupWrapper = () => {
