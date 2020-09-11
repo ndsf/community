@@ -92,6 +92,10 @@ module.exports = {
       if (body.trim() === "")
         throw new UserInputError("Group body must not be empty");
 
+      // check if exists a group with same name
+      const tempGroup = await Group.findOne({body});
+      if (tempGroup) throw new UserInputError("存在同名小组");
+
       const group = await Group.findById(groupId);
       if (user.username === group.username || group.admins.find(admin => admin.username === user.username)) {
         group.body = body;
