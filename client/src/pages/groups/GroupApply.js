@@ -17,7 +17,7 @@ const GroupApply = props => {
   const groupId = props.match.params.groupId;
 
   const {
-    data: {getGroup}
+    data: {getGroup} = {}
   } = useQuery(FETCH_GROUP_APPLY_QUERY, {
     variables: {
       groupId

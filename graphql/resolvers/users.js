@@ -174,7 +174,7 @@ module.exports = {
     },
     sendNotification: async (_, {username: receiver, body}, context) => {
       const {username} = checkAuth(context);
-      const receiverUser = await User.findOne({receiver});
+      const receiverUser = await User.findOne({username: receiver});
 
       if (receiverUser) {
         receiverUser.notifications.unshift({

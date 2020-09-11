@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Icon, message } from "antd";
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { HeartOutlined } from '@ant-design/icons';
+import { message } from "antd";
 
 const GroupLikeButton = ({ user, group: { id, username, likeCount, likes, admins} }) => {
   const [liked, setLiked] = useState(false);
@@ -24,7 +26,7 @@ const GroupLikeButton = ({ user, group: { id, username, likeCount, likes, admins
 
   return user ? (
     <span onClick={likeGroupWrapper}>
-      <Icon
+      <LegacyIcon
         theme={liked ? "twoTone" : ""}
         twoToneColor="#eb2f96"
         type="heart"
@@ -34,7 +36,7 @@ const GroupLikeButton = ({ user, group: { id, username, likeCount, likes, admins
     </span>
   ) : (
     <span>
-      <Icon type="heart" style={{ marginRight: 8 }} />
+      <HeartOutlined style={{ marginRight: 8 }} />
       {likeCount}
     </span>
   );

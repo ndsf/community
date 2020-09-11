@@ -1,17 +1,21 @@
-import React, { useContext, useState } from 'react';
-import { Button, Form, Input } from "antd";
-import { useMutation } from '@apollo/react-hooks';
+import React, {useContext, useState} from 'react';
+import {Form} from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import {Breadcrumb, Button, Input, Layout} from "antd";
+import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-import { AuthContext } from '../../context/auth';
-import { useForm } from '../../utils/hooks';
+import {AuthContext} from '../../context/auth';
+import {useForm} from '../../utils/hooks';
+
+const {Content, Footer} = Layout;
 
 
 const Login = props => {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
-  const { onChange, onSubmit, values } = useForm(loginUserCallback, {
+  const {onChange, onSubmit, values} = useForm(loginUserCallback, {
     username: '',
     password: ''
   });
@@ -20,7 +24,7 @@ const Login = props => {
     update(
         _,
         {
-          data: { login: userData }
+          data: {login: userData}
         }
     ) {
       context.login(userData);
@@ -37,43 +41,50 @@ const Login = props => {
   }
 
   return (
-      <div>
-        <Form layout="vertical" onSubmit={onSubmit}>
+      <Layout className="layout">
+        <Content style={{padding: '0 50px'}}>
+          <Breadcrumb style={{margin: '16px 0'}}>
+            <Breadcrumb.Item>用户</Breadcrumb.Item>
+            <Breadcrumb.Item>登录</Breadcrumb.Item>
+          </Breadcrumb>
           <h1>登录</h1>
-          <Form.Item label="用户名">
-            <Input
-                placeholder="Username"
-                name="username"
-                type="text"
-                value={values.username}
-                error={errors.username ? 1 : 0}
-                onChange={onChange}
-            />
-          </Form.Item>
-          <Form.Item label="密码">
-            <Input
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={values.password}
-                error={errors.password ? 1 : 0}
-                onChange={onChange}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit" type="primary">
-              登录
-            </Button>
-          </Form.Item>
-        </Form>
-        {Object.keys(errors).length > 0 && (
-            <ul className="list">
-              {Object.values(errors).map(err => (
-                  <li key={err}>{err}</li>
-              ))}
-            </ul>
-        )}
-      </div>
+          <Form layout="vertical" onSubmit={onSubmit}>
+            <Form.Item label="用户名">
+              <Input
+                  placeholder="Username"
+                  name="username"
+                  type="text"
+                  value={values.username}
+                  error={errors.username ? 1 : 0}
+                  onChange={onChange}
+              />
+            </Form.Item>
+            <Form.Item label="密码">
+              <Input
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={values.password}
+                  error={errors.password ? 1 : 0}
+                  onChange={onChange}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button htmlType="submit" type="primary">
+                登录
+              </Button>
+            </Form.Item>
+          </Form>
+          {Object.keys(errors).length > 0 && (
+              <ul className="list">
+                {Object.values(errors).map(err => (
+                    <li key={err}>{err}</li>
+                ))}
+              </ul>
+          )}
+        </Content>
+        <Footer style={{textAlign: 'center'}}>Circle Community Created by ndsf</Footer>
+      </Layout>
   );
 };
 

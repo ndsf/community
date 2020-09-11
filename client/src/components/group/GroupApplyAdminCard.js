@@ -1,6 +1,8 @@
 import React, {useContext, useRef, useState} from "react";
 import {AuthContext} from "../../context/auth";
-import {Avatar, Button, Card, Comment, Form, Input, List} from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Avatar, Button, Card, Comment, Input, List } from "antd";
 import GroupGrantAdminButton from "./GroupGrantAdminButton";
 import {Link} from "react-router-dom";
 import moment from "moment";

@@ -1,6 +1,8 @@
 import React, {useContext, useRef, useState} from "react";
 import {AuthContext} from "../../context/auth";
-import {Button, Card, Form, Input} from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Card, Input } from "antd";
 import {useMutation} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 

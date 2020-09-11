@@ -3,8 +3,9 @@ import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import {
-  Form,
   Layout,
   Breadcrumb,
   Input,
@@ -16,7 +17,7 @@ import {
   Comment,
   Tooltip,
   List,
-  Skeleton
+  Skeleton,
 } from "antd";
 import moment from "moment";
 
@@ -40,7 +41,7 @@ const GroupPost = props => {
   const [comment, setComment] = useState("");
 
   const {
-    data: { getGroup }
+    data: { getGroup } = {}
   } = useQuery(FETCH_GROUP_QUERY, {
     variables: {
       groupId
@@ -48,7 +49,7 @@ const GroupPost = props => {
   });
 
   const {
-    data: { getGroupPost }
+    data: { getGroupPost } = {}
   } = useQuery(FETCH_GROUP_POST_QUERY, {
     variables: {
       groupId,

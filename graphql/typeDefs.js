@@ -90,6 +90,7 @@ module.exports = gql`
     sendNotification(username: String!, body: String!): User!
     clearNotification: User!
     createGroup(body: String!, bio: String!, avatar: String!): Group!
+    editGroup(groupId: ID!, body: String!, bio: String!, avatar: String!): Group!
     deleteGroup(groupId: ID!): String!
     likeGroup(groupId: ID!): Group!
     importGroupLikes(groupId: ID!, usernames: String!): Group! # split into usernames

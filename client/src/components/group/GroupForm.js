@@ -1,10 +1,13 @@
 import React from "react";
-import {Button, Form, Icon, Input, message, Upload} from "antd";
+import {Form} from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import {Button, Input, message, Upload} from "antd";
 
 import {useForm} from "../../utils/hooks";
-import gql from "graphql-tag";
-import {useMutation} from "@apollo/react-hooks";
+import {useMutation} from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import {FETCH_GROUPS_QUERY} from "../../utils/graphql";
+import {UploadOutlined} from "@ant-design/icons";
 import {slugify} from "transliteration";
 
 const {TextArea} = Input;
@@ -19,27 +22,11 @@ const GroupForm = () => {
         }
     );
 
-    const [createGroup, {error}] = useMutation(CREATE_GROUP_MUTATION, {
-        variables: values,
-        update(proxy, result) {
-            const data = proxy.readQuery({
-                query: FETCH_GROUPS_QUERY
-            });
-
-            data.getGroups = [result.data.createGroup, ...data.getGroups];
-            proxy.writeQuery({query: FETCH_GROUPS_QUERY, data});
-            values.body = "";
-            values.bio = "";
-            values.avatar = "";
-        }
-    });
-
     const props = {
         name: "file",
         accept: ".png, .jpg, .jpeg",
         action: "http://localhost:5000/upload",
         onChange(info) {
-            console.log(info);
             if (info.file.status !== "uploading") {
                 console.log(info.file, info.fileList);
             }
@@ -56,6 +43,22 @@ const GroupForm = () => {
             }
         }
     };
+
+
+    const [createGroup, {error}] = useMutation(CREATE_GROUP_MUTATION, {
+        variables: values,
+        update(proxy, result) {
+            const data = proxy.readQuery({
+                query: FETCH_GROUPS_QUERY
+            });
+
+            data.getGroups = [result.data.createGroup, ...data.getGroups];
+            proxy.writeQuery({query: FETCH_GROUPS_QUERY, data});
+            values.body = "";
+            values.bio = "";
+            values.avatar = "";
+        }
+    });
 
     function createGroupCallBack() {
         createGroup();
@@ -94,7 +97,7 @@ const GroupForm = () => {
             <Form.Item>
                 <Upload {...props}>
                     <Button>
-                        <Icon type="upload"/> 上传图片
+                        <UploadOutlined/> 上传图片
                     </Button>
                 </Upload>
             </Form.Item>

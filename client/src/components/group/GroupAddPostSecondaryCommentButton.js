@@ -1,6 +1,9 @@
 import React, { useState, useRef } from "react";
 import gql from "graphql-tag";
-import { Input, Form, Icon, Modal } from "antd";
+import { MessageOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Modal } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 const { TextArea } = Input;
 const GroupAddPostSecondaryCommentButton = ({
@@ -48,7 +51,7 @@ const GroupAddPostSecondaryCommentButton = ({
   return (
     <div>
       <span onClick={showModal}>
-        <Icon type="message" style={{ marginRight: 8 }} />
+        <MessageOutlined style={{ marginRight: 8 }} />
         评论
       </span>
       <Modal

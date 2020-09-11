@@ -3,19 +3,9 @@ import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import ReactMarkdown from "react-markdown";
-import {
-  Layout,
-  Breadcrumb,
-  Input,
-  Row,
-  Col,
-  Card,
-  Button,
-  Icon,
-  Avatar,
-  List,
-  Skeleton
-} from "antd";
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { StarOutlined, UpCircleOutlined } from '@ant-design/icons';
+import { Layout, Breadcrumb, Input, Row, Col, Card, Button, Avatar, List, Skeleton } from "antd";
 import moment from "moment";
 import { AuthContext } from "../../context/auth";
 import GroupDeletePostButton from "../../components/group/GroupDeletePostButton";
@@ -41,13 +31,13 @@ const Group = props => {
 
   const IconText = ({ type, text }) => (
       <span>
-      <Icon type={type} style={{ marginRight: 8 }} />
+      <LegacyIcon type={type} style={{ marginRight: 8 }} />
         {text}
     </span>
   );
 
   const {
-    data: { getGroup }
+    data: { getGroup } = {}
   } = useQuery(FETCH_GROUP_QUERY, {
     variables: {
       groupId
@@ -194,7 +184,6 @@ const Group = props => {
                             actions.push(
                                 <GroupDeletePostButton
                                     groupId={id}
-                                    postId={item.id}
                                     post={item}
                                 />
                             );
@@ -215,47 +204,49 @@ const Group = props => {
                           );
 
                           return (
-                              <List.Item key={item.title} actions={actions}>
-                                <List.Item.Meta
-                                    avatar={
-                                      <Link to={`/users/${item.username}`}>
-                                        <Avatar
-                                            style={{
-                                              color: "#f56a00",
-                                              backgroundColor: "#fde3cf"
-                                            }}
-                                        >
-                                          {item.username}
-                                        </Avatar>
-                                      </Link>
-                                    }
-                                    title={
-                                      <Link to={`/groups/${id}/posts/${item.id}`}>
-                                        {item.title}
-                                        {item.qualified && (
-                                            <span>
-                                    {" "}
-                                              <Icon type="star" style={{
+                            <List.Item key={item.title} actions={actions}>
+                              <List.Item.Meta
+                                  avatar={
+                                    <Link to={`/users/${item.username}`}>
+                                      <Avatar
+                                          style={{
+                                            color: "#f56a00",
+                                            backgroundColor: "#fde3cf"
+                                          }}
+                                      >
+                                        {item.username}
+                                      </Avatar>
+                                    </Link>
+                                  }
+                                  title={
+                                    <Link to={`/groups/${id}/posts/${item.id}`}>
+                                      {item.title}
+                                      {item.qualified && (
+                                          <span>
+                                  {" "}
+                                            <StarOutlined
+                                              style={{
                                                 color: "red"
                                               }} />{" 精华 "}
-                                  </span>
-                                        )}
-                                        {item.top && (
-                                            <span>
-                                    {" "}
-                                              <Icon type="up-circle" style={{
+                                </span>
+                                      )}
+                                      {item.top && (
+                                          <span>
+                                  {" "}
+                                            <UpCircleOutlined
+                                              style={{
                                                 color: "red"
-                                              }}/>{" 置顶 "}
-                                  </span>
-                                        )}
-                                      </Link>
-                                    }
-                                    description={`${item.username} 发表于 ${moment(
-                                        item.createdAt
-                                    ).fromNow()}`}
-                                />
-                                {<ReactMarkdown source={item.body} />}
-                              </List.Item>
+                                              }} />{" 置顶 "}
+                                </span>
+                                      )}
+                                    </Link>
+                                  }
+                                  description={`${item.username} 发表于 ${moment(
+                                      item.createdAt
+                                  ).fromNow()}`}
+                              />
+                              {<ReactMarkdown source={item.body} />}
+                            </List.Item>
                           );
                         }}
                     />

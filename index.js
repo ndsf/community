@@ -7,6 +7,7 @@ const path = require("path");
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
 const {slugify} = require("transliteration");
+const fs = require("fs");
 require("dotenv").config();
 
 const pubsub = new PubSub();
@@ -37,6 +38,15 @@ app.post("/upload", (req, res) => {
     filepath = `${__dirname}/client/public/uploads/${slugify(file.name, {
       ignore: ["."]
     })}`;
+
+  fs.mkdirSync(path.dirname(filepath), { recursive: true });
+
+  try {
+    fs.unlinkSync(filepath);
+    //file removed
+  } catch(err) {
+    console.error(err);
+  }
 
   file.mv(
       filepath,

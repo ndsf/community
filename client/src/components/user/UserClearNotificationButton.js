@@ -1,6 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
-import {Icon, message, Popconfirm} from "antd";
+import { DeleteOutlined } from '@ant-design/icons';
+import { message, Popconfirm } from "antd";
 import {useMutation} from "@apollo/react-hooks";
 
 const UserClearNotificationButton = ({callback}) => {
@@ -18,7 +19,7 @@ const UserClearNotificationButton = ({callback}) => {
             okText="确认"
             cancelText="取消"
         >
-            <Icon type="delete" style={{marginRight: 8}}/>
+            <DeleteOutlined style={{marginRight: 8}} />
             清空通知
         </Popconfirm>
     );

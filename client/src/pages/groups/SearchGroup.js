@@ -21,7 +21,7 @@ const SearchGroup = props => {
 
   const {
     loading,
-    data: { getGroupsByBody: groups }
+    data: { getGroupsByBody: groups } = {}
   } = useQuery(FETCH_GROUPS_BY_BODY_QUERY, {
     variables: { keyword: keyword }
   });
