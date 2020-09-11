@@ -27,7 +27,6 @@ const GroupForm = () => {
         accept: ".png, .jpg, .jpeg",
         action: "http://localhost:5000/upload",
         onChange(info) {
-            console.log(info);
             if (info.file.status !== "uploading") {
                 console.log(info.file, info.fileList);
             }
