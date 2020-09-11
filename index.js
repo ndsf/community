@@ -41,6 +41,13 @@ app.post("/upload", (req, res) => {
 
   fs.mkdirSync(path.dirname(filepath), { recursive: true });
 
+  try {
+    fs.unlinkSync(filepath);
+    //file removed
+  } catch(err) {
+    console.error(err);
+  }
+
   file.mv(
       filepath,
       err => {
