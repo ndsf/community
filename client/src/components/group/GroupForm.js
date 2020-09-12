@@ -98,13 +98,13 @@ const GroupForm = () => {
                     error={error}
                 />
             </Form.Item>
-            <Form.Item>
-                <Upload {...props}>
-                    <Button>
-                        <UploadOutlined/> 上传图片
-                    </Button>
-                </Upload>
-            </Form.Item>
+            {/*<Form.Item>*/}
+            {/*    <Upload {...props}>*/}
+            {/*        <Button>*/}
+            {/*            <UploadOutlined/> 上传图片*/}
+            {/*        </Button>*/}
+            {/*    </Upload>*/}
+            {/*</Form.Item>*/}
             <Form.Item>
                 <Button htmlType="submit" type="primary">
                     提交

@@ -112,13 +112,13 @@ const GroupEditButton = ({groupId, group, callback}) => {
                             ref={avatarInputRef}
                         />
                     </Form.Item>
-                    <Form.Item>
-                        <Upload {...props}>
-                            <Button>
-                                <UploadOutlined/> 上传图片
-                            </Button>
-                        </Upload>
-                    </Form.Item>
+                    {/*<Form.Item>*/}
+                    {/*    <Upload {...props}>*/}
+                    {/*        <Button>*/}
+                    {/*            <UploadOutlined/> 上传图片*/}
+                    {/*        </Button>*/}
+                    {/*    </Upload>*/}
+                    {/*</Form.Item>*/}
                 </Form>
             </Modal>
         </div>
