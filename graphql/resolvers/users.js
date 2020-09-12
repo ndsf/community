@@ -20,7 +20,8 @@ const generateToken = user => {
         id: user.id,
         email: user.email,
         username: user.username,
-        saltedPassword: user.password
+        isTeacher: user.isTeacher
+        // saltedPassword: user.password
       },
       process.env.SECRET_KEY,
       {expiresIn: "24h"}
@@ -75,36 +76,36 @@ module.exports = {
         token
       };
     },
-    async saltedLogin(_, {username, saltedPassword}) {
-      const {errors, valid} = validateLoginInput(username, saltedPassword);
-
-      if (!valid) {
-        throw new UserInputError("Something went wrong", {errors});
-      }
-
-      const user = await User.findOne({username});
-
-      if (!user) {
-        errors.general = "User not found";
-        throw new UserInputError("User not found", {errors});
-      }
-
-      // const match = await bcrypt.compare(password, user.password);
-      const match = saltedPassword === user.password;
-
-      if (!match) {
-        errors.general = "Wrong credentials";
-        throw new UserInputError("Wrong credentials", {errors});
-      }
-
-      const token = generateToken(user);
-
-      return {
-        ...user._doc,
-        id: user._id,
-        token
-      };
-    },
+    // async saltedLogin(_, {username, saltedPassword}) {
+    //   const {errors, valid} = validateLoginInput(username, saltedPassword);
+    //
+    //   if (!valid) {
+    //     throw new UserInputError("Something went wrong", {errors});
+    //   }
+    //
+    //   const user = await User.findOne({username});
+    //
+    //   if (!user) {
+    //     errors.general = "User not found";
+    //     throw new UserInputError("User not found", {errors});
+    //   }
+    //
+    //   // const match = await bcrypt.compare(password, user.password);
+    //   const match = saltedPassword === user.password;
+    //
+    //   if (!match) {
+    //     errors.general = "Wrong credentials";
+    //     throw new UserInputError("Wrong credentials", {errors});
+    //   }
+    //
+    //   const token = generateToken(user);
+    //
+    //   return {
+    //     ...user._doc,
+    //     id: user._id,
+    //     token
+    //   };
+    // },
     async register(
         _,
         {

@@ -45,7 +45,7 @@ const GroupInformationCard = ({
                             {username} 创建于 {moment(createdAt).fromNow()}
                         </p>
                         <p>{bio}</p>
-                        {user && likes.find(like => like.username === user.username) && <a href={`https://live.alight.show/?username=${user.username}&credential='${user.saltedPassword}'&courseId=${id}`}>直播间地址</a>}
+                        {user && likes.find(like => like.username === user.username) && <a href={`https://live.alight.show/?isTeacher='${user.isTeacher}'&courseId=${id}`}>直播间地址</a>}
                         {user && (user.username === username || admins.find(admin => admin.username === user.username)) &&
                         <GroupEditButton groupId={id} group={{
                             id,

@@ -86,7 +86,7 @@ module.exports = gql`
     grantTeacher(username: String!): User!
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
-    saltedLogin(username: String!, saltedPassword: String!): User! # dangerous
+#    saltedLogin(username: String!, saltedPassword: String!): User! # dangerous
     changePassword(password: String!): User!
     resetPassword(username: String!, email: String!): User!
     sendNotification(username: String!, body: String!): User!
