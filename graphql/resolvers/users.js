@@ -20,7 +20,7 @@ const generateToken = user => {
         id: user.id,
         email: user.email,
         username: user.username,
-        notifications: user.notifications
+        saltedPassword: user.password
       },
       process.env.SECRET_KEY,
       {expiresIn: "24h"}
